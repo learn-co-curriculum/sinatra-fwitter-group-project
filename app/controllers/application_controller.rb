@@ -67,9 +67,15 @@ class ApplicationController < Sinatra::Base
   end
 
   post '/tweets/:id/delete' do 
+    binding.pry
     @tweet = Tweet.find_by_id(params[:id])
-    @tweet.delete
-    redirect to '/tweets'
+    if session[:user_id]
+      @tweet = Tweet.find_by_id(params[:id])
+      @tweet.delete!
+      redirect to '/tweets'
+    else
+      redirect to '/login'
+    end
   end
 
 
@@ -78,24 +84,24 @@ class ApplicationController < Sinatra::Base
   end
 
   post '/signup' do 
-    @user = User.new(:username => params[:username], :email => params[:email])
+    @user = User.new(:username => params[:username], :email => params[:email], :password => params[:password])
     @user.save
     session[:user_id] = @user.id
-    redirect '/'
+    redirect '/tweets'
   end
 
   get '/login' do 
     erb :'users/login'
   end
 
-   post '/login' do
+  post '/login' do
     user = User.find_by(:username => params[:username])
-    if user != nil
-         session[:user_id] = user.id
-        redirect "/tweets"
-     else
-        redirect to '/signup'
-     end
+    if user && user.authenticate(params[:password])
+      session[:user_id] = user.id
+      redirect "/tweets"
+    else
+      redirect to '/signup'
+    end
   end
 
   get '/logout' do
@@ -111,5 +117,6 @@ class ApplicationController < Sinatra::Base
     def current_user
       User.find(session[:user_id])
     end
+
   end
 end
