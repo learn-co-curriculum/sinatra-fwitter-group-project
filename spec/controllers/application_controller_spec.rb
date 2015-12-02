@@ -1,22 +1,7 @@
 require 'spec_helper'
 
 describe ApplicationController do
-  # before do
-  #   Landmark.create(name: 'BQE', year_completed: '1961')
-  # end
 
-  # after do
-  #   Landmark.destroy_all
-  # end
-
-  # it "allows you to create a new user" do
-
-  # end
-
-  # it "allows you to list all landmarks" do
-  #   get '/landmarks'
-  #   expect(last_response.status).to eq(200)
-  # end
 
   it 'loads the homepage' do 
     get '/'
@@ -24,13 +9,11 @@ describe ApplicationController do
     expect(last_response.body).to include("Welcome to Fwitter")
   end
 
-  #get signup
   it 'loads the signup page' do 
     get '/signup'
     expect(last_response.status).to eq(200)
   end
 
-  #post signup
   it 'signup directs user to twitter index' do 
     params = {
       :username => "skittles123",
@@ -41,7 +24,6 @@ describe ApplicationController do
     expect(last_response.location).to eq("http://example.org/tweets") 
   end
 
-  #get login
   it 'loads the login page' do
     get '/login' 
     expect(last_response.status).to eq(200)
@@ -58,6 +40,7 @@ describe ApplicationController do
     expect(last_response.location).to eq("http://example.org/tweets")
   end
 
+  
   it 'redirects to login after logout' do 
     get '/logout' 
     expect(last_response.location).to eq("http://example.org/login")
@@ -95,7 +78,7 @@ describe ApplicationController do
 
   end
 
-   it 'does not let user view new tweet form if not logged in' do 
+  it 'does not let user view new tweet form if not logged in' do 
     get '/tweets/new'
     expect(last_response.location).to eq("http://example.org/login")
   end 
@@ -155,32 +138,26 @@ describe ApplicationController do
     expect(page.status_code).to eq(200)
   end
 
-  # it 'lets a user delete a tweet if they are logged in' do
-  #   user = User.create(:username => "becky567", :email => "starz@aol.com", :password => "kittens")
-  #   tweet = Tweet.create(:content => "tweeting!", :user_id => 1)
-  #   visit '/login'
 
-  #   fill_in(:username, :with => "becky567")
-  #   fill_in(:password, :with => "kittens")
-  #   click_button 'submit'
-  #   session = {}
-  #   post '/tweets/1/delete'
-  #   expect(page.status_code).to eq(200)
-  #   expect(Tweet.find_by(:content => "tweeting!")).to eq(nil)
-  # end
+  it 'lets a user delete a tweet if they are logged in' do
+    user = User.create(:username => "becky567", :email => "starz@aol.com", :password => "kittens")
+    tweet = Tweet.create(:content => "tweeting!", :user_id => 1)
+    visit '/login'
+
+    fill_in(:username, :with => "becky567")
+    fill_in(:password, :with => "kittens")
+    click_button 'submit'
+    visit 'tweets/1'
+    click_button "Delete Tweet"
+    expect(page.status_code).to eq(200)
+    expect(Tweet.find_by(:content => "tweeting!")).to eq(nil)
+  end
 
   it 'does not load let user delete a tweet if not logged in' do 
     tweet = Tweet.create(:content => "tweeting!", :user_id => 1)
-    post '/tweets/1/delete'
-    expect(last_response.location).to eq("http://example.org/login")
+    visit '/tweets/1'
+    expect(page.current_path).to eq("/login")
   end
-
-
-
-
-
-
-
 
 
 end
