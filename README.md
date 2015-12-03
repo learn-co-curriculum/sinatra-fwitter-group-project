@@ -145,5 +145,11 @@ You'll need two more controller actions to process logging in: one to display th
 
 ### Log Out
 
-You'll need to create a controller action to process logging out.   
+You'll need to create a controller action to process a GET request to logging out. The controller action should clear the session hash
+
+### Protecting The Views
+
+You'll need to make sure that no one can create, read, edit or delete any tweets.
+
+You'll want to create two helper methods `current_user` and `is_logged_in`. You'll want to use these helper methods to block content is a user is not logged in.
 
