@@ -94,9 +94,9 @@ You'll need to create two models in `app/models`, one `User` model and one `Twee
 
 You'll need to create two migrations to create the users and the tweets table.
 
-Users should have a username, email, and password.
+Users should have a username, email, and password, and have many tweets.
 
-Tweets should have content, and a user_id.
+Tweets should have content, belong to a user.
 
 ### Associations
 
