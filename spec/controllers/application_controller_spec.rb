@@ -105,9 +105,21 @@ describe ApplicationController do
   end
 
   describe "logout" do 
-    it 'redirects to login after logout' do 
-      get '/logout' 
+    it "lets a user logout if they are already logged in" do
+      user = User.create(:username => "becky567", :email => "starz@aol.com", :password => "kittens")
+
+      params = {
+        :username => "becky567",
+        :password => "kittens"
+      }
+      post '/login', params
+      get '/logout'
       expect(last_response.location).to include("/login")
+
+    end
+    it 'does not let a user logout if not logged in' do 
+      get '/logout' 
+      expect(last_response.location).to include("/")
     end
 
     it 'does not load /tweets if user not logged in' do 
@@ -117,6 +129,7 @@ describe ApplicationController do
 
     it 'does load /tweets if user is logged in' do
       user = User.create(:username => "becky567", :email => "starz@aol.com", :password => "kittens")
+
 
       visit '/login'
 
@@ -129,104 +142,175 @@ describe ApplicationController do
     end
   end
 
+  describe 'user show page' do 
+    it 'shows all a single users tweets' do
+      user = User.create(:username => "becky567", :email => "starz@aol.com", :password => "kittens")
+      tweet1 = Tweet.create(:content => "tweeting!", :user_id => user.id)
+      tweet2 = Tweet.create(:content => "tweet tweet tweet", :user_id => user.id)
+      get "/users/#{user.slug}"
+
+      expect(last_response.body).to include("tweeting!")
+      expect(last_response.body).to include("tweet tweet tweet")
+
+    end
+  end
+
+
+
   describe 'new action' do 
-    it 'lets user view new tweet form if not logged in' do
-      user = User.create(:username => "becky567", :email => "starz@aol.com", :password => "kittens")
+    context 'logged in' do 
+      it 'lets user view new tweet form if logged in' do
+        user = User.create(:username => "becky567", :email => "starz@aol.com", :password => "kittens")
 
-      visit '/login'
+        visit '/login'
 
-      fill_in(:username, :with => "becky567")
-      fill_in(:password, :with => "kittens")
-      click_button 'submit'
-      visit '/tweets/new'
-      expect(page.status_code).to eq(200)
+        fill_in(:username, :with => "becky567")
+        fill_in(:password, :with => "kittens")
+        click_button 'submit'
+        visit '/tweets/new'
+        expect(page.status_code).to eq(200)
 
+      end
 
-    end
+      it 'lets user create a tweet if they are logged in' do
+        user = User.create(:username => "becky567", :email => "starz@aol.com", :password => "kittens")
 
-    it 'does not let user view new tweet form if not logged in' do 
-      get '/tweets/new'
-      expect(last_response.location).to include("/login")
-    end 
+        visit '/login'
 
-    it 'lets user create a tweet if they are logged in' do
-      user = User.create(:username => "becky567", :email => "starz@aol.com", :password => "kittens")
-
-      visit '/login'
-
-      fill_in(:username, :with => "becky567")
-      fill_in(:password, :with => "kittens")
-      click_button 'submit'
+        fill_in(:username, :with => "becky567")
+        fill_in(:password, :with => "kittens")
+        click_button 'submit'
       
-      visit '/tweets/new'
-      fill_in(:content, :with => "tweet!!!")
-      click_button 'submit'
+        visit '/tweets/new'
+        fill_in(:content, :with => "tweet!!!")
+        click_button 'submit'
 
-      expect(Tweet.find_by(:content => "tweet!!!")).to be_instance_of(Tweet)  
-      expect(page.status_code).to eq(200)
-
-
+        user = User.find_by(:username => "becky567")
+        tweet = Tweet.find_by(:content => "tweet!!!")
+        expect(tweet).to be_instance_of(Tweet)  
+        expect(tweet.user_id).to eq(user.id)
+        expect(page.status_code).to eq(200)
+      end
     end
+
+    context 'logged out' do 
+      it 'does not let user view new tweet form if not logged in' do 
+        get '/tweets/new'
+        expect(last_response.location).to include("/login")
+      end 
+    end
+
+  
   end
 
   describe 'edit action' do
-    it 'lets a user view tweet edit form if they are logged in' do
-      user = User.create(:username => "becky567", :email => "starz@aol.com", :password => "kittens")
-      tweet = Tweet.create(:content => "tweeting!", :user_id => 1)
-      visit '/login'
+    context "logged in" do 
+      it 'lets a user view tweet edit form if they are logged in' do
+        user = User.create(:username => "becky567", :email => "starz@aol.com", :password => "kittens")
+        tweet = Tweet.create(:content => "tweeting!", :user_id => user.id)
+        visit '/login'
 
-      fill_in(:username, :with => "becky567")
-      fill_in(:password, :with => "kittens")
-      click_button 'submit'
-      visit '/tweets/1/edit'
-      expect(page.status_code).to eq(200)
+        fill_in(:username, :with => "becky567")
+        fill_in(:password, :with => "kittens")
+        click_button 'submit'
+        visit '/tweets/1/edit'
+        expect(page.status_code).to eq(200)
+        expect(page.body).to include(tweet.content)
+      end
+
+      it 'does not let a user edit a tweet they did not create' do
+        user1 = User.create(:username => "becky567", :email => "starz@aol.com", :password => "kittens")
+        tweet1 = Tweet.create(:content => "tweeting!", :user_id => user1.id)
+
+        user2 = User.create(:username => "silverstallion", :email => "silver@aol.com", :password => "horses")
+        tweet2 = Tweet.create(:content => "look at this tweet", :user_id => user2.id)
+        
+        visit '/login'
+
+        fill_in(:username, :with => "becky567")
+        fill_in(:password, :with => "kittens")
+        click_button 'submit'
+        session = {}
+        session[:user_id] = user1.id
+        visit "/tweets/#{tweet2.id}/edit"
+        expect(page.current_path).to include('/tweets')
+
+      end
+
+      it 'lets a user edit their own tweet if they are logged in' do
+        user = User.create(:username => "becky567", :email => "starz@aol.com", :password => "kittens")
+        tweet = Tweet.create(:content => "tweeting!", :user_id => 1)
+        visit '/login'
+
+        fill_in(:username, :with => "becky567")
+        fill_in(:password, :with => "kittens")
+        click_button 'submit'
+        visit '/tweets/1/edit'
+
+        fill_in(:content, :with => "i love tweeting")
+
+        click_button 'submit'
+        expect(Tweet.find_by(:content => "i love tweeting")).to be_instance_of(Tweet)  
+        expect(Tweet.find_by(:content => "tweeting!")).to eq(nil)  
+
+        expect(page.status_code).to eq(200)
+      end
     end
 
-    it 'does not load let user view tweet edit form if not logged in' do 
-      get '/tweets/1/edit'
-      expect(last_response.location).to include("/login")
-    end 
-
-    it 'lets a user edit tweet if they are logged in' do
-      user = User.create(:username => "becky567", :email => "starz@aol.com", :password => "kittens")
-      tweet = Tweet.create(:content => "tweeting!", :user_id => 1)
-      visit '/login'
-
-      fill_in(:username, :with => "becky567")
-      fill_in(:password, :with => "kittens")
-      click_button 'submit'
-      visit '/tweets/1/edit'
-
-      fill_in(:content, :with => "i love tweeting")
-
-      click_button 'submit'
-      expect(Tweet.find_by(:content => "i love tweeting")).to be_instance_of(Tweet)  
-      expect(Tweet.find_by(:content => "tweeting!")).to eq(nil)  
-
-      expect(page.status_code).to eq(200)
+    context "logged out" do 
+      it 'does not load let user view tweet edit form if not logged in' do 
+        get '/tweets/1/edit'
+        expect(last_response.location).to include("/login")
+      end
     end
+ 
   end
 
-  describe 'delete action' do 
-    it 'lets a user delete a tweet if they are logged in' do
-      user = User.create(:username => "becky567", :email => "starz@aol.com", :password => "kittens")
-      tweet = Tweet.create(:content => "tweeting!", :user_id => 1)
-      visit '/login'
+  describe 'delete action' do
+    context "logged in" do
+      it 'lets a user delete their own tweet if they are logged in' do
+        user = User.create(:username => "becky567", :email => "starz@aol.com", :password => "kittens")
+        tweet = Tweet.create(:content => "tweeting!", :user_id => 1)
+        visit '/login'
 
-      fill_in(:username, :with => "becky567")
-      fill_in(:password, :with => "kittens")
-      click_button 'submit'
-      visit 'tweets/1'
-      click_button "Delete Tweet"
-      expect(page.status_code).to eq(200)
-      expect(Tweet.find_by(:content => "tweeting!")).to eq(nil)
+        fill_in(:username, :with => "becky567")
+        fill_in(:password, :with => "kittens")
+        click_button 'submit'
+        visit 'tweets/1'
+        click_button "Delete Tweet"
+        expect(page.status_code).to eq(200)
+        expect(Tweet.find_by(:content => "tweeting!")).to eq(nil)
+      end
+
+      it 'does not let a user delete a tweet they did not create' do
+        user1 = User.create(:username => "becky567", :email => "starz@aol.com", :password => "kittens")
+        tweet1 = Tweet.create(:content => "tweeting!", :user_id => user1.id)
+
+        user2 = User.create(:username => "silverstallion", :email => "silver@aol.com", :password => "horses")
+        tweet2 = Tweet.create(:content => "look at this tweet", :user_id => user2.id)
+        
+        visit '/login'
+
+        fill_in(:username, :with => "becky567")
+        fill_in(:password, :with => "kittens")
+        click_button 'submit'
+        visit "tweets/#{tweet2.id}"
+        click_button "Delete Tweet"
+        expect(page.status_code).to eq(200)
+        expect(Tweet.find_by(:content => "look at this tweet")).to be_instance_of(Tweet)
+        expect(page.current_path).to include('/tweets')
+      end
+ 
     end
 
-    it 'does not load let user delete a tweet if not logged in' do 
-      tweet = Tweet.create(:content => "tweeting!", :user_id => 1)
-      visit '/tweets/1'
-      expect(page.current_path).to eq("/login")
+    context "logged out" do 
+      it 'does not load let user delete a tweet if not logged in' do 
+        tweet = Tweet.create(:content => "tweeting!", :user_id => 1)
+        visit '/tweets/1'
+        expect(page.current_path).to eq("/login")
+      end
     end
+    
   end
 
 
