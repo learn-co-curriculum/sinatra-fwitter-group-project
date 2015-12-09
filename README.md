@@ -153,3 +153,5 @@ You'll need to make sure that no one can create, read, edit or delete any tweets
 
 You'll want to create two helper methods `current_user` and `is_logged_in`. You'll want to use these helper methods to block content is a user is not logged in.
 
+It's especially important that a user should not be able to edit or delete the tweets created by a different user. A user can only modify their own tweets.
+
