@@ -11,6 +11,7 @@ describe ApplicationController do
   end
 
   describe "Signup Page" do 
+    
     it 'loads the signup page' do 
       get '/signup'
       expect(last_response.status).to eq(200)
@@ -23,11 +24,55 @@ describe ApplicationController do
         :password => "rainbows"
       }
       post '/signup', params
-      expect(last_response.location).to eq("http://example.org/tweets") 
+      expect(last_response.location).to include("/tweets") 
+    end
+
+    it 'does not let a user sign up without a username' do 
+      params = {
+        :username => "",
+        :email => "skittles@aol.com",
+        :password => "rainbows"
+      }
+      post '/signup', params
+      expect(last_response.location).to include('/signup')
+    end
+
+    it 'does not let a user sign up without an email' do 
+      params = {
+        :username => "skittles123",
+        :email => "",
+        :password => "rainbows"
+      }
+      post '/signup', params
+      expect(last_response.location).to include('/signup')
+    end
+
+    it 'does not let a user sign up without a password' do 
+      params = {
+        :username => "skittles123",
+        :email => "skittles@aol.com",
+        :password => ""
+      }
+      post '/signup', params
+      expect(last_response.location).to include('/signup')
+    end
+
+    it 'does not let a logged in user view the signup page' do 
+      user = User.create(:username => "skittles123", :email => "skittles@aol.com", :password => "rainbows")
+      params = {
+        :username => "skittles123",
+        :email => "skittles@aol.com",
+        :password => "rainbows"
+      }
+      post '/signup', params
+      session = {}
+      session[:id] = user.id
+      get '/signup'
+      expect(last_response.location).to include('/tweets')
     end
   end
 
-  describe "login page" do 
+  describe "login" do 
     it 'loads the login page' do
       get '/login' 
       expect(last_response.status).to eq(200)
@@ -41,20 +86,34 @@ describe ApplicationController do
       }
       post '/login', params
       expect(last_response.status).to eq(302)
-      expect(last_response.location).to eq("http://example.org/tweets")
+      expect(last_response.location).to include("/tweets")
+    end
+
+    it 'does not let user view login page if already logged in' do 
+      user = User.create(:username => "becky567", :email => "starz@aol.com", :password => "kittens")
+
+      params = {
+        :username => "becky567",
+        :password => "kittens"
+      }
+      post '/login', params
+      session = {}
+      session[:id] = user.id
+      get '/login'
+      expect(last_response.location).to include("/tweets")
     end
   end
 
   describe "logout" do 
     it 'redirects to login after logout' do 
       get '/logout' 
-      expect(last_response.location).to eq("http://example.org/login")
+      expect(last_response.location).to include("/login")
     end
 
-    # it 'does not load /tweets if user not logged in' do 
-    #   get '/tweets'
-    #   expect(last_response.location).to eq("http://example.org/login")
-    # end 
+    it 'does not load /tweets if user not logged in' do 
+      get '/tweets'
+      expect(last_response.location).to eq("http://example.org/login")
+    end 
 
     it 'does load /tweets if user is logged in' do
       user = User.create(:username => "becky567", :email => "starz@aol.com", :password => "kittens")
@@ -70,7 +129,7 @@ describe ApplicationController do
     end
   end
 
-  descibe 'new action' do 
+  describe 'new action' do 
     it 'lets user view new tweet form if not logged in' do
       user = User.create(:username => "becky567", :email => "starz@aol.com", :password => "kittens")
 
@@ -87,7 +146,7 @@ describe ApplicationController do
 
     it 'does not let user view new tweet form if not logged in' do 
       get '/tweets/new'
-      expect(last_response.location).to eq("http://example.org/login")
+      expect(last_response.location).to include("/login")
     end 
 
     it 'lets user create a tweet if they are logged in' do
@@ -125,7 +184,7 @@ describe ApplicationController do
 
     it 'does not load let user view tweet edit form if not logged in' do 
       get '/tweets/1/edit'
-      expect(last_response.location).to eq("http://example.org/login")
+      expect(last_response.location).to include("/login")
     end 
 
     it 'lets a user edit tweet if they are logged in' do
