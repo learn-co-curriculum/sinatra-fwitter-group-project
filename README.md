@@ -127,10 +127,6 @@ You'll need to two controller actions, one to display a form to delete a tweet, 
 
 The delete form doesn't need to have any input fields, just a submit button.
 
-### Sessions
-
-In the controller, you'll want to enable sessions.
-
 ### Sign Up
 
 You'll need to create two controller actions, one to display the user signup and one to process the form submission. The controller action that processes the form submission should create the user and save it to the database.
