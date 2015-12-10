@@ -35,9 +35,13 @@ class ApplicationController < Sinatra::Base
 
   post '/tweets' do
     #creates new tweet
-    user = User.find_by_id(session[:user_id])
-    @tweet = Tweet.create(:content => params[:content], :user_id => user.id)
-    redirect to "/tweets/#{@tweet.id}"
+    if params[:content] == ""
+      redirect to "/tweets/new"
+    else
+      user = User.find_by_id(session[:user_id])
+      @tweet = Tweet.create(:content => params[:content], :user_id => user.id)
+      redirect to "/tweets/#{@tweet.id}"
+    end
   end
 
   get '/tweets/:id' do 
@@ -64,10 +68,14 @@ class ApplicationController < Sinatra::Base
   end
 
   post '/tweets/:id' do #edit action
-    @tweet = Tweet.find_by_id(params[:id])
-    @tweet.content = params[:content]
-    @tweet.save
-    redirect to "/tweets/#{@tweet.id}"
+    if params[:content] == ""
+      redirect to "/tweets/#{params[:id]}/edit"
+    else
+      @tweet = Tweet.find_by_id(params[:id])
+      @tweet.content = params[:content]
+      @tweet.save
+      redirect to "/tweets/#{@tweet.id}"
+    end
   end
 
   post '/tweets/:id/delete' do 

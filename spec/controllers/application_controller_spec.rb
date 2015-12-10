@@ -86,9 +86,9 @@ describe ApplicationController do
       }
       post '/login', params
       expect(last_response.status).to eq(302)
+      binding.pry
       expect(last_response.location).to include("/tweets")
-      # binding.pry
-      # expect(last_response.body).to include("Welcome, #{user.username}")
+      expect(last_response.body).to include("Welcome,")
     end
 
     it 'does not let user view login page if already logged in' do 
@@ -126,7 +126,7 @@ describe ApplicationController do
 
     it 'does not load /tweets if user not logged in' do 
       get '/tweets'
-      expect(last_response.location).to eq("http://example.org/login")
+      expect(last_response.location).to include("/login")
     end 
 
     it 'does load /tweets if user is logged in' do
@@ -193,6 +193,48 @@ describe ApplicationController do
         expect(tweet.user_id).to eq(user.id)
         expect(page.status_code).to eq(200)
       end
+
+      it 'does not let a user tweet from another user' do 
+        user = User.create(:username => "becky567", :email => "starz@aol.com", :password => "kittens")
+        user2 = User.create(:username => "silverstallion", :email => "silver@aol.com", :password => "horses")
+
+        visit '/login'
+
+        fill_in(:username, :with => "becky567")
+        fill_in(:password, :with => "kittens")
+        click_button 'submit'
+      
+        visit '/tweets/new'
+
+        fill_in(:content, :with => "tweet!!!")
+        click_button 'submit'
+
+        user = User.find_by(:id=> user.id)
+        user2 = User.find_by(:id => user2.id)
+        tweet = Tweet.find_by(:content => "tweet!!!")
+        expect(tweet).to be_instance_of(Tweet)  
+        expect(tweet.user_id).to eq(user.id)
+        expect(tweet.user_id).not_to eq(user2.id)
+      end
+
+      it 'does not let a user create a blank tweet' do 
+        user = User.create(:username => "becky567", :email => "starz@aol.com", :password => "kittens")
+
+        visit '/login'
+
+        fill_in(:username, :with => "becky567")
+        fill_in(:password, :with => "kittens")
+        click_button 'submit'
+      
+        visit '/tweets/new'
+
+        fill_in(:content, :with => "")
+        click_button 'submit'
+
+        expect(Tweet.find_by(:content => "")).to eq(nil)  
+        expect(page.current_path).to eq("/tweets/new")
+
+      end
     end
 
     context 'logged out' do 
@@ -201,6 +243,30 @@ describe ApplicationController do
         expect(last_response.location).to include("/login")
       end 
     end
+
+  describe 'show action' do 
+    context 'logged in' do 
+      it 'displays a single tweet' do 
+
+        user = User.create(:username => "becky567", :email => "starz@aol.com", :password => "kittens")
+        tweet = Tweet.create(:content => "i am a boss at tweeting", :user_id => user.id)
+        
+        visit '/login'
+
+        fill_in(:username, :with => "becky567")
+        fill_in(:password, :with => "kittens")
+        click_button 'submit'
+      
+        visit "/tweets/#{tweet.id}"
+        expect(page.status_code).to eq(200)
+        expect(page.body).to include("Delete Tweet")
+        expect(page.body).to include(tweet.content)
+      end
+    end
+
+    context 'logged out' do 
+    end
+  end
 
   
   end
@@ -256,6 +322,24 @@ describe ApplicationController do
         expect(Tweet.find_by(:content => "tweeting!")).to eq(nil)  
 
         expect(page.status_code).to eq(200)
+      end
+
+      it 'does not let a user edit a text with blank content' do 
+        user = User.create(:username => "becky567", :email => "starz@aol.com", :password => "kittens")
+        tweet = Tweet.create(:content => "tweeting!", :user_id => 1)
+        visit '/login'
+
+        fill_in(:username, :with => "becky567")
+        fill_in(:password, :with => "kittens")
+        click_button 'submit'
+        visit '/tweets/1/edit'
+
+        fill_in(:content, :with => "")
+
+        click_button 'submit'
+        expect(Tweet.find_by(:content => "i love tweeting")).to be(nil)  
+        expect(page.current_path).to eq("/tweets/1/edit")  
+
       end
     end
 
