@@ -109,27 +109,31 @@ You'll need a controller action to load the home page. You'll want to create a v
 
 ### Create Tweet
 
-You'll need to create two controller actions, one to load the create tweet form, and one to process the form submission. The tweet should be created and saved to the database.
+You'll need to create two controller actions, one to load the create tweet form, and one to process the form submission. The tweet should be created and saved to the database. The form should be load via a GET request to `/tweets/new` and submitted via a POST to `/tweets`.
 
 ### Show Tweet
 
-You'll need to create a controller action that displays the information for a single tweet. 
+You'll need to create a controller action that displays the information for a single tweet. You'll want the controller action respond to a GET request to `/tweets`.
 
 ### Edit Tweet
 
-You'll need to create two controller actions to edit a tweet: one to load the form to edit, and one to actually update the tweet entry in the database.
+You'll need to create two controller actions to edit a tweet: one to load the form to edit, and one to actually update the tweet entry in the database. The form to edit a tweet should be loaded via a GET request to `/tweets/:id/edit`. The form should be submitted via a POST request to `/tweets/:id`.
 
 You'll want to create an edit link on the tweet show page.
 
 ### Delete Tweet
 
-You'll need to two controller actions, one to display a form to delete a tweet, and one to process the form submission. 
+You'll only need one controller action to delete a tweet. The form to delete a tweet should be found on the tweet show page.
 
 The delete form doesn't need to have any input fields, just a submit button.
+
+The form to delete a tweet should be submitted via a POST request to `tweets/:id/delete`.
 
 ### Sign Up
 
 You'll need to create two controller actions, one to display the user signup and one to process the form submission. The controller action that processes the form submission should create the user and save it to the database.
+
+The form to sign up should be loaded via a GET request to `/signup` and submitted via a POST request to `/signup`.
 
 The signup action should also log the user in and add the `user_id` to the sessions hash.
 
@@ -139,9 +143,11 @@ Make sure you add the Signup link to the home page.
 
 You'll need two more controller actions to process logging in: one to display the form to log in and one to log add the `user_id` to the sessions hash.
 
+The form to login should be loaded via a GET request to `/login` and submitted via a POST request to `/login`.
+
 ### Log Out
 
-You'll need to create a controller action to process a GET request to logging out. The controller action should clear the session hash
+You'll need to create a controller action to process a GET request to `/logout` to log out. The controller action should clear the session hash
 
 ### Protecting The Views
 
