@@ -157,6 +157,14 @@ describe ApplicationController do
     end
   end
 
+  describe 'index action' do 
+    context 'logged in' do 
+    end
+
+    context 'logged out' do 
+    end
+  end
+
 
 
   describe 'new action' do 
@@ -261,10 +269,17 @@ describe ApplicationController do
         expect(page.status_code).to eq(200)
         expect(page.body).to include("Delete Tweet")
         expect(page.body).to include(tweet.content)
+        expect(page.body).to include("Edit Tweet")
       end
     end
 
     context 'logged out' do 
+      it 'does not let a user view a tweet' do
+        user = User.create(:username => "becky567", :email => "starz@aol.com", :password => "kittens")
+        tweet = Tweet.create(:content => "i am a boss at tweeting", :user_id => user.id)
+        get "/tweets/#{tweet.id}"
+        expect(last_response.location).to include("/login")
+      end
     end
   end
 
