@@ -157,6 +157,36 @@ describe ApplicationController do
     end
   end
 
+  describe 'index action' do 
+    context 'logged in' do 
+      it 'lets a user view the tweets index if logged in' do
+        user1 = User.create(:username => "becky567", :email => "starz@aol.com", :password => "kittens")
+        tweet1 = Tweet.create(:content => "tweeting!", :user_id => user1.id)
+
+        user2 = User.create(:username => "silverstallion", :email => "silver@aol.com", :password => "horses")
+        tweet2 = Tweet.create(:content => "look at this tweet", :user_id => user2.id)
+        
+        visit '/login'
+
+        fill_in(:username, :with => "becky567")
+        fill_in(:password, :with => "kittens")
+        click_button 'submit'
+        visit "/tweets"
+        expect(page.body).to include(tweet1.content)
+        expect(page.body).to include(tweet2.content)
+      end
+    end
+
+
+    context 'logged out' do 
+      it 'does not let a user view the tweets index if not logged in' do 
+        get '/tweets'
+        expect(last_response.location).to include("/login")
+      end
+    end
+
+  end
+
 
 
   describe 'new action' do 
@@ -261,10 +291,17 @@ describe ApplicationController do
         expect(page.status_code).to eq(200)
         expect(page.body).to include("Delete Tweet")
         expect(page.body).to include(tweet.content)
+        expect(page.body).to include("Edit Tweet")
       end
     end
 
     context 'logged out' do 
+      it 'does not let a user view a tweet' do
+        user = User.create(:username => "becky567", :email => "starz@aol.com", :password => "kittens")
+        tweet = Tweet.create(:content => "i am a boss at tweeting", :user_id => user.id)
+        get "/tweets/#{tweet.id}"
+        expect(last_response.location).to include("/login")
+      end
     end
   end
 
