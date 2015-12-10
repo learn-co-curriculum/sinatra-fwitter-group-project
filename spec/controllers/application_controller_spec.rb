@@ -87,6 +87,8 @@ describe ApplicationController do
       post '/login', params
       expect(last_response.status).to eq(302)
       expect(last_response.location).to include("/tweets")
+      # binding.pry
+      # expect(last_response.body).to include("Welcome, #{user.username}")
     end
 
     it 'does not let user view login page if already logged in' do 
