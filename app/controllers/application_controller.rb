@@ -14,7 +14,7 @@ class ApplicationController < Sinatra::Base
     erb :index
   end
 
-  get '/tweets' do 
+  get '/tweets' do
     #index of all tweets
     if session[:user_id]
       @tweets = Tweet.all
