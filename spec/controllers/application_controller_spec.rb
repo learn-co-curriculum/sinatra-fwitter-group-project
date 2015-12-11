@@ -86,8 +86,8 @@ describe ApplicationController do
       }
       post '/login', params
       expect(last_response.status).to eq(302)
-      binding.pry
-      expect(last_response.location).to include("/tweets")
+      follow_redirect!
+      expect(last_response.status).to eq(200)
       expect(last_response.body).to include("Welcome,")
     end
 
