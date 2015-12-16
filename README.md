@@ -18,7 +18,7 @@ You'll be implementing Fwitter using multiple objects that interact, including s
  
 Just like with Twitter, a user should be able to take any actions (except sign-up), unless they are logged in. Once a user is logged in, they should be able to create, edit and delete their own tweets, as well as view all the tweets.
 
-There are controller tests to make sure that you 
+There are controller tests to make sure that you build the apporpriate controller actions that map to the correct routes.
 
 ## Group Project Instructions
 
