@@ -109,7 +109,7 @@ You'll need a controller action to load the home page. You'll want to create a v
 
 ### Create Tweet
 
-You'll need to create two controller actions, one to load the create tweet form, and one to process the form submission. The tweet should be created and saved to the database. The form should be load via a GET request to `/tweets/new` and submitted via a POST to `/tweets`.
+You'll need to create two controller actions, one to load the create tweet form, and one to process the form submission. The tweet should be created and saved to the database. The form should be loaded via a GET request to `/tweets/new` and submitted via a POST to `/tweets`.
 
 ### Show Tweet
 
