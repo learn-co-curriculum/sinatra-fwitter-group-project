@@ -12,7 +12,7 @@
 
 ## Overview
 
-The goal of this project is to build Fwitter (aka Flation Twitter).
+The goal of this project is to build Fwitter (aka Flatiron Twitter).
 
 You'll be implementing Fwitter using multiple objects that interact, including separate classes for User and Tweet.
  
