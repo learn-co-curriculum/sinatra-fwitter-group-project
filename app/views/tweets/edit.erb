@@ -1,0 +1,6 @@
+<form action="/tweets/<%=@fweet.id%>/edit" method="POST">
+  <input type="text" name="content" value="<%=@fweet.content%>">
+  <%=@fweet.id%>
+  <input type="submit" value="submit">
+</form>
+<br><a href="/tweets">back to the nest</a>

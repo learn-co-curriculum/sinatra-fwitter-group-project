@@ -1,0 +1,15 @@
+<%=@fweet.content%>
+<% if session[:id] == @fweet.user_id %>
+  <form action="/tweet/<%=@fweet.id%>/delete" method="POST">
+    <input type="submit" name="delete" value="Delete Tweet">
+  </form>
+  <br><a href="/tweets/<%=@fweet.id%>/edit">Edit Tweet</a>
+<% end %>
+
+
+
+<!-- <form action="/tweet/<%=@fweet.id%>/delete" method="POST">
+  <input type="submit" name="delete" value="Delete Tweet">
+</form>
+<br><a href="/tweets/<%=@fweet.id%>/edit">Edit Tweet</a>
+<br><a href="/tweets">back to the nest</a> -->

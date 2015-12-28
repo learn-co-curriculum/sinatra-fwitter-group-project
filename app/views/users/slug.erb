@@ -1,0 +1,8 @@
+
+<h1>Welcome to <%=@user.username%>'s Fwitter nest!</h1>
+<a href="/tweets/index">Get back to my nest!</a>
+<br>
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<% @fweets.reverse.each do |f|%>
+  <br><%=@user.username%>: <%= f.content %>
+<% end %>
