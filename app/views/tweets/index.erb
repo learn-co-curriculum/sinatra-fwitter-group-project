@@ -1,0 +1,9 @@
+
+<h1>Welcome, <%=@user.username%>! Here is your feed!</h1>
+<br><a href="/tweets/new">Make a new Fweet!</a>-----<a href="/logout">Log Me Out'a Here!</a>
+<br>
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<% @posts.reverse.each do |p| %>
+  <br><%= p.keys[0] %>: <%= p.values[0] %>
+<% end %>
+
