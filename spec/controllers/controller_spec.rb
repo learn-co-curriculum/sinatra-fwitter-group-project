@@ -188,7 +188,6 @@ describe ApplicationController do
   end
 
 
-
   describe 'new action' do 
     context 'logged in' do 
       it 'lets user view new tweet form if logged in' do
@@ -203,6 +202,7 @@ describe ApplicationController do
         expect(page.status_code).to eq(200)
 
       end
+
 
       it 'lets user create a tweet if they are logged in' do
         user = User.create(:username => "becky567", :email => "starz@aol.com", :password => "kittens")
@@ -222,6 +222,7 @@ describe ApplicationController do
         expect(tweet).to be_instance_of(Tweet)  
         expect(tweet.user_id).to eq(user.id)
         expect(page.status_code).to eq(200)
+        expect(page.current_path).to eq("/tweets/1")
       end
 
       it 'does not let a user tweet from another user' do 
@@ -319,8 +320,21 @@ describe ApplicationController do
         fill_in(:password, :with => "kittens")
         click_button 'submit'
         visit '/tweets/1/edit'
+
         expect(page.status_code).to eq(200)
         expect(page.body).to include(tweet.content)
+      end
+
+      it 'submits the edit form via a PATCH request' do
+        user = User.create(:username => "becky567", :email => "starz@aol.com", :password => "kittens")
+        tweet = Tweet.create(:content => "tweeting!", :user_id => user.id)
+        visit '/login'      
+
+        fill_in(:username, :with => "becky567")
+        fill_in(:password, :with => "kittens")
+        click_button 'submit'
+        visit '/tweets/1/edit'
+        expect(find("#hidden", :visible => false).value).to eq("PATCH")
       end
 
       it 'does not let a user edit a tweet they did not create' do
