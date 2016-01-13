@@ -36,7 +36,7 @@ class TweetsController < ApplicationController
     end
   end
 
-  get '/tweets/:id/edit' do  #load edit form
+  get '/tweets/:id/edit' do
     if session[:user_id] 
       @tweet = Tweet.find_by_id(params[:id])
       if @tweet.user_id == session[:user_id]
@@ -60,7 +60,7 @@ class TweetsController < ApplicationController
     end
   end
 
-  post '/tweets/:id/delete' do 
+  delete '/tweets/:id/delete' do 
     @tweet = Tweet.find_by_id(params[:id])
     if session[:user_id]
       @tweet = Tweet.find_by_id(params[:id])
