@@ -1,7 +1,6 @@
 class TweetsController < ApplicationController
 
   get '/tweets' do
-    #index of all tweets
     if session[:user_id]
       @tweets = Tweet.all
       erb :'tweets/tweets'
@@ -11,7 +10,6 @@ class TweetsController < ApplicationController
   end
 
   get '/tweets/new' do
-    #load form to create a new tweet
     if session[:user_id]
       erb :'tweets/create_tweet'
     else
@@ -20,7 +18,6 @@ class TweetsController < ApplicationController
   end
 
   post '/tweets' do
-    #creates new tweet
     if params[:content] == ""
       redirect to "/tweets/new"
     else
@@ -31,7 +28,6 @@ class TweetsController < ApplicationController
   end
 
   get '/tweets/:id' do 
-    #tweets show
     if session[:user_id]
       @tweet = Tweet.find_by_id(params[:id])
       erb :'tweets/show_tweet'
@@ -53,7 +49,7 @@ class TweetsController < ApplicationController
     end
   end
 
-  patch '/tweets/:id' do #edit action
+  patch '/tweets/:id' do 
     if params[:content] == ""
       redirect to "/tweets/#{params[:id]}/edit"
     else
@@ -68,7 +64,6 @@ class TweetsController < ApplicationController
     @tweet = Tweet.find_by_id(params[:id])
     if session[:user_id]
       @tweet = Tweet.find_by_id(params[:id])
-      binding
       if @tweet.user_id == session[:user_id]
         @tweet.delete
         redirect to '/tweets'
