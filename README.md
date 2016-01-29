@@ -158,4 +158,4 @@ You'll want to create two helper methods `current_user` and `is_logged_in`. You'
 It's especially important that a user should not be able to edit or delete the tweets created by a different user. A user can only modify their own tweets.
 
 
-<a href='https://learn.co/lessons/sinatra-fwitter-group-project' data-visibility='hidden'>View this lesson on Learn.co</a>
+<p data-visibility='hidden'>View <a href='https://learn.co/lessons/sinatra-fwitter-group-project' title='Fwitter Group Project'>Fwitter Group Project</a> on Learn.co and start learning to code for free.</p>
