@@ -1,4 +1,3 @@
-require 'pry'
 describe 'User' do 
   before do
     @user = User.create(:username => "test 123", :email => "test123@aol.com", :password => "test")
