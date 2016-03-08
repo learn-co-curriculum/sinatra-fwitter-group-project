@@ -18,7 +18,7 @@ You'll be implementing Fwitter using multiple objects that interact, including s
  
 Just like with Twitter, a user should not be able to take any actions (except sign-up), unless they are logged in. Once a user is logged in, they should be able to create, edit and delete their own tweets, as well as view all the tweets.
 
-There are controller tests to make sure that you build the apporpriate controller actions that map to the correct routes.
+There are controller tests to make sure that you build the appropriate controller actions that map to the correct routes.
 
 ## Group Project Instructions
 
@@ -159,3 +159,5 @@ It's especially important that a user should not be able to edit or delete the t
 
 
 <p data-visibility='hidden'>View <a href='https://learn.co/lessons/sinatra-fwitter-group-project' title='Fwitter Group Project'>Fwitter Group Project</a> on Learn.co and start learning to code for free.</p>
+
+<p data-visibility='hidden'>View <a href='https://learn.co/lessons/sinatra-fwitter-group-project'>Fwitter</a> on Learn.co and start learning to code for free.</p>
