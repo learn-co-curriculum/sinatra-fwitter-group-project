@@ -1,0 +1,16 @@
+<html>
+<head>
+</head>
+
+<body>
+<%= @tweet.content %><br>
+<div class = "login-box">
+  <form action = "/tweets/<%=@tweet.id%>/delete" method = "post">
+    <input type = "hidden" name = "_method" value = "delete">
+    <input  id = "Delete Tweet" value = "Delete Tweet" type = "submit" style = "color: red; width: 100px;">
+  </form>
+  <br>
+  <a href = "/tweets/<%=@tweet.id%>/edit"><button style = "color: blue; width: 100px;">Edit Tweet</button></a>
+</div>
+</body>
+</html>

@@ -1,0 +1,10 @@
+<h3 style = "position: absolute; top: 0; right: 10; color: blue;" >Welcome, <%= currentUser.username %> </h3>
+<h2 style = "color: blue;">Tweets by <%= @user.username %></h2>
+
+<% if !@user.tweets.empty? %>
+  <%@user.tweets.each do |tweet|%>
+    <%=tweet.content%><br>
+  <%end%>
+<%else %>
+  <h3><%=@user.username %> don't have tweets</h3>
+<%end%>

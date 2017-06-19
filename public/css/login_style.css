@@ -1,0 +1,54 @@
+
+html, body {
+  width: 100% ;
+  height: 100% ;
+}
+
+.login-box {
+  margin: auto auto ;
+  padding: 10px;
+  width: 40% ;
+  border: 1px solid black;
+  border-radius: 5px ;
+}
+
+.login-box form input {
+  width: 60% ;
+  height: 30px;
+}
+
+.login-box form label {
+  display: inline-block;
+  width: 30% ;
+}
+
+.login-box form  button {
+  color:  #FFFFfF;
+  background-color: #4AB3F4;
+  border-radius: 5px;
+  border: 0;
+  box-shadow:none;
+  height: 35px ;
+}
+
+.login-box form textarea {
+  width: 300px ;
+  display: block ;
+  height: 200px ;
+}
+
+@media only screen and (min-width: 1290px) {
+
+  .login-box {
+    width: 540px ;
+  }
+
+}
+
+@media only screen and (max-width: 830px) {
+
+  .login-box {
+    width: 354px ;
+  }
+
+}
