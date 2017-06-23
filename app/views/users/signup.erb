@@ -1,0 +1,31 @@
+<html>
+
+<head>
+  <title>Sign up</title>
+  <link rel = "stylesheet" href = "../css/login_style.css" type = "text/css"/>
+</head>
+
+<body>
+  <div class = "login-box">
+    <form action = "/signup" method = "post">
+      <label for = "username">Username: </label>
+      <input type = "text" name = "username" id = "username" placeholder = "Name appears in your profile"/><br><br>
+
+      <label for = "password" >Password: </label>
+      <input type = "password" name = "password" id = "password" placeholder = "your password"/><br><br>
+
+
+      <label for = "email" >E-mail </label>
+      <input type = "email" name = "email" id = "email" placeholder = "your e-mail address" /><br><br>
+
+      <button  type = "submit"> Sign up </button>
+
+    </form>
+    <%if flash[:message]%>
+    <h3 style = "color: red;"><%= flash[:message] %></h3>
+    <%end %>
+
+  </div> <!-- login-box end -->
+</body>
+
+</html>

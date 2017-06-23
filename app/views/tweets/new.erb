@@ -1,0 +1,21 @@
+<html>
+
+<head>
+<link rel = "stylesheet" type = "text/css" href = "../css/login_style.css">
+</head>
+
+<body>
+
+<div class = "login-box">
+  <form action = "/tweets" method = "post">
+  <h3>Tweet content:</h3>
+    <textarea id = "content" name = "content"> </textarea><br>
+  <h3 style = "color: red;"><%= flash[:message] %></h3>
+    <button type = "submit" id = "submit">Tweet!</button>
+  </form>
+  <% if flash[:message] %>
+  <% end %>
+</div>
+
+</body>
+</html>
