@@ -117,8 +117,8 @@ describe ApplicationController do
       post '/login', params
       get '/logout'
       expect(last_response.location).to include("/login")
-
     end
+
     it 'does not let a user logout if not logged in' do
       get '/logout'
       expect(last_response.location).to include("/")
@@ -175,17 +175,13 @@ describe ApplicationController do
       end
     end
 
-
     context 'logged out' do
       it 'does not let a user view the tweets index if not logged in' do
         get '/tweets'
         expect(last_response.location).to include("/login")
       end
     end
-
   end
-
-
 
   describe 'new action' do
     context 'logged in' do
@@ -199,7 +195,6 @@ describe ApplicationController do
         click_button 'submit'
         visit '/tweets/new'
         expect(page.status_code).to eq(200)
-
       end
 
       it 'lets user create a tweet if they are logged in' do
@@ -261,7 +256,6 @@ describe ApplicationController do
 
         expect(Tweet.find_by(:content => "")).to eq(nil)
         expect(page.current_path).to eq("/tweets/new")
-
       end
     end
 
@@ -271,6 +265,7 @@ describe ApplicationController do
         expect(last_response.location).to include("/login")
       end
     end
+  end
 
   describe 'show action' do
     context 'logged in' do
