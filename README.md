@@ -12,13 +12,13 @@
 
 ## Overview
 
-The goal of this project is to build Fwitter (aka Flation Twitter).
+The goal of this project is to build Fwitter (aka Flatiron Twitter).
 
 You'll be implementing Fwitter using multiple objects that interact, including separate classes for User and Tweet.
  
-Just like with Twitter, a user should be able to take any actions (except sign-up), unless they are logged in. Once a user is logged in, they should be able to create, edit and delete their own tweets, as well as view all the tweets.
+Just like with Twitter, a user should not be able to take any actions (except sign-up), unless they are logged in. Once a user is logged in, they should be able to create, edit and delete their own tweets, as well as view all the tweets.
 
-There are controller tests to make sure that you 
+There are controller tests to make sure that you build the appropriate controller actions that map to the correct routes.
 
 ## Group Project Instructions
 
@@ -62,6 +62,7 @@ Remember! The goal at The Flatiron School is not to do, it is to *learn*. Make s
 │       └── users
 │           ├── create_user.erb
 │           └── login.erb
+│           └── show.erb
 ├── config
 │   └── environment.rb
 ├── config.ru
@@ -109,11 +110,11 @@ You'll need a controller action to load the home page. You'll want to create a v
 
 ### Create Tweet
 
-You'll need to create two controller actions, one to load the create tweet form, and one to process the form submission. The tweet should be created and saved to the database. The form should be load via a GET request to `/tweets/new` and submitted via a POST to `/tweets`.
+You'll need to create two controller actions, one to load the create tweet form, and one to process the form submission. The tweet should be created and saved to the database. The form should be loaded via a GET request to `/tweets/new` and submitted via a POST to `/tweets`.
 
 ### Show Tweet
 
-You'll need to create a controller action that displays the information for a single tweet. You'll want the controller action respond to a GET request to `/tweets`.
+You'll need to create a controller action that displays the information for a single tweet. You'll want the controller action respond to a GET request to `/tweets/:id`.
 
 ### Edit Tweet
 
@@ -153,7 +154,10 @@ You'll need to create a controller action to process a GET request to `/logout` 
 
 You'll need to make sure that no one can create, read, edit or delete any tweets.
 
-You'll want to create two helper methods `current_user` and `is_logged_in`. You'll want to use these helper methods to block content is a user is not logged in.
+You'll want to create two helper methods `current_user` and `logged_in?`. You'll want to use these helper methods to block content if a user is not logged in.
 
 It's especially important that a user should not be able to edit or delete the tweets created by a different user. A user can only modify their own tweets.
 
+<p data-visibility='hidden'>View <a href='https://learn.co/lessons/sinatra-fwitter-group-project' title='Fwitter Group Project'>Fwitter Group Project</a> on Learn.co and start learning to code for free.</p>
+
+<p class='util--hide'>View <a href='https://learn.co/lessons/sinatra-fwitter-group-project'>Fwitter</a> on Learn.co and start learning to code for free.</p>
