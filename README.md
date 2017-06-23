@@ -62,6 +62,7 @@ Remember! The goal at The Flatiron School is not to do, it is to *learn*. Make s
 │       └── users
 │           ├── create_user.erb
 │           └── login.erb
+│           └── show.erb
 ├── config
 │   └── environment.rb
 ├── config.ru
