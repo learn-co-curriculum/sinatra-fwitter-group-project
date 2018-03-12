@@ -368,7 +368,7 @@ describe ApplicationController do
     end
 
     context "logged out" do
-      it 'does not load let user view tweet edit form if not logged in' do
+      it 'does not load -- requests user to login' do
         get '/tweets/1/edit'
         expect(last_response.location).to include("/login")
       end
