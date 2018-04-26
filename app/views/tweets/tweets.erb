@@ -1,0 +1,6 @@
+<p>"Welcome,"</p>
+
+<%Tweet.all.each do |tweet| %>
+  <h3><a href="/tweets/<%=tweet.id %>"><%= tweet.content%></a></h3>
+<% end %>
+
