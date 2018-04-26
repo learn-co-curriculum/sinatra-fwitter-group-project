@@ -1,6 +1,6 @@
 
 class User < ActiveRecord::Base
-  
+  has_secure_password
   has_many :tweets
 
   def slug
@@ -11,7 +11,7 @@ class User < ActiveRecord::Base
     @user = self.all.find { |s| s.slug == slug }
   end
 
-  has_secure_password
+  
   validates :username, presence: true
   validates :email, presence: true
 
