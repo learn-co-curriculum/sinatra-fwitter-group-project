@@ -36,6 +36,38 @@ class ApplicationController < Sinatra::Base
     end 
   end 
 
+  get '/login' do  
+    if session[:id]
+      redirect '/tweets'
+    else 
+      erb :'users/login'
+    end 
+  end 
+
+  post '/login' do
+    @user = User.find_by(username: params[:username])
+   
+      if @user && @user.authenticate(params[:password])
+        session[:id] = @user.id
+        redirect '/tweets'
+      else
+        redirect '/login'
+      end
+  end 
+
+  get '/logout' do
+    session.clear
+    redirect '/login'
+  end 
+
+  get '/users/:slug' do
+    @user=User.find_by_slug(params[:slug])
+    @tweet=Tweet.all
+
+    erb :'users/show_tweet'
+  end
+
+
   get '/tweets' do
     if session[:id]
       @tweet= Tweet.all 
@@ -62,37 +94,7 @@ class ApplicationController < Sinatra::Base
     end
   end
 
-  get '/login' do  
-    if session[:id]
-      redirect '/tweets'
-    else 
-      erb :'users/login'
-    end 
-  end 
-
-  post '/login' do
-    @user = User.find_by(username: params[:username])
-   
-      if @user && user.authenticate(params[:password])
-        session[:id] = @user.id
-        redirect '/tweets'
-      else
-        redirect '/login'
-      end
-  end 
-
-  get '/logout' do
-    session.clear
-    redirect '/login'
-  end 
-
-  get '/users/:slug' do
-    @user=User.find_by_slug(params[:slug])
-    @tweet=Tweet.all
-
-    erb :'users/show_tweet'
-  end
-
+  
   get '/tweets/new' do 
     if session[:id]
       erb :'tweets/create_tweet'
