@@ -92,15 +92,11 @@ describe ApplicationController do
     end
 
     it 'does not let user view login page if already logged in' do
-      user = User.create(:username => "becky567", :email => "starz@aol.com", :password => "kittens")
-
       params = {
         :username => "becky567",
         :password => "kittens"
       }
       post '/login', params
-      session = {}
-      session[:user_id] = user.id
       get '/login'
       expect(last_response.location).to include("/tweets")
     end
