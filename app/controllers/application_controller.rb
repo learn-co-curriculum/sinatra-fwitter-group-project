@@ -7,7 +7,6 @@ class ApplicationController < Sinatra::Base
     set :views, 'app/views'
   end
 
-<<<<<<< HEAD
   get '/' do 
     erb :index
   end
@@ -22,6 +21,4 @@ class ApplicationController < Sinatra::Base
     end
 
   end
-=======
->>>>>>> enforce_ar_version
 end
