@@ -1,5 +1,9 @@
 class User < ActiveRecord::Base
+<<<<<<< HEAD
   has_many  :tweets
+=======
+  has_many  :tweets 
+>>>>>>> merge conflict resolved
 
   has_secure_password
 
@@ -11,4 +15,8 @@ class User < ActiveRecord::Base
     User.all.find{|user| user.slug == slug}
   end
 
+<<<<<<< HEAD
 end
+=======
+end
+>>>>>>> merge conflict resolved
