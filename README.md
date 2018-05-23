@@ -69,7 +69,7 @@ understand every part of the code.
 │       ├── index.erb
 │       ├── layout.erb
 │       ├── tweets
-│       │   ├── new.erb
+│       │   ├── create_tweet.erb
 │       │   ├── edit_tweet.erb
 │       │   ├── show_tweet.erb
 │       │   └── tweets.erb
@@ -89,9 +89,7 @@ understand every part of the code.
 │   └── test.sqlite
 └── spec
     ├── controllers
-    │   └── application_controller_spec.rb
-    ├── models
-    │   └── user_spec.rb
+    │   └── application_controller_spec.rb
     └── spec_helper.rb
 ```
 
