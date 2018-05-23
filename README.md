@@ -15,11 +15,7 @@
 The goal of this project is to build Fwitter (aka Flatiron Twitter).
 
 You'll be implementing Fwitter using multiple objects that interact, including separate classes for User and Tweet.
-<<<<<<< HEAD
 
-=======
-
->>>>>>> solution
 Just like with Twitter, a user should not be able to take any actions (except sign-up), unless they are logged in. Once a user is logged in, they should be able to create, edit and delete their own tweets, as well as view all the tweets.
 
 There are controller tests to make sure that you build the appropriate controller actions that map to the correct routes.
@@ -28,11 +24,7 @@ There are controller tests to make sure that you build the appropriate controlle
 
 *Instructions for how to work on a Group Project with Learn*
 
-<<<<<<< HEAD
 ### Some Hints on Working Together
-=======
-### Some Hints on Working Together
->>>>>>> solution
 
 Working on a software project with another person is not something to be taken lightly. While you are a fantastic coder solo, software development is a collaborative activity. Just like anything else, there is skill in collaborating on code. In the end, collaborating with another person boils down to three different styles:
 
@@ -54,39 +46,38 @@ Remember! The goal at The Flatiron School is not to do, it is to *learn*. Make s
 ├── README.md
 ├── Rakefile
 ├── app
-│   ├── controllers
-│   │   ├── application_controller.rb
-│   │   ├── tweets_controller.rb   
-│   │   └── users_controller.rb     
-│   │   └── application_controller.rb
-│   ├── models
-│   │   ├── tweet.rb
-│   │   └── user.rb
-│   └── views
-│       ├── index.erb
-│       ├── layout.erb
-│       ├── tweets
-│       │   ├── create_tweet.erb
-│       │   ├── edit_tweet.erb
-│       │   ├── show_tweet.erb
-│       │   └── tweets.erb
-│       └── users
-│           ├── create_user.erb
-│           └── login.erb
-│           └── show.erb
+│   ├── controllers
+│   │   ├── application_controller.rb
+│   │   ├── tweets_controller.rb   
+│   │   └── users_controller.rb     
+│   ├── models
+│   │   ├── tweet.rb
+│   │   └── user.rb
+│   └── views
+│       ├── index.erb
+│       ├── layout.erb
+│       ├── tweets
+│       │   ├── create_tweet.erb
+│       │   ├── edit_tweet.erb
+│       │   ├── show_tweet.erb
+│       │   └── tweets.erb
+│       └── users
+│           ├── create_user.erb
+│           └── login.erb
+│           └── show.erb
 ├── config
-│   └── environment.rb
+│   └── environment.rb
 ├── config.ru
 ├── db
-│   ├── development.sqlite
-│   ├── migrate
-│   │   ├── 20151124191332_create_users.rb
-│   │   └── 20151124191334_create_tweets.rb
-│   ├── schema.rb
-│   └── test.sqlite
+│   ├── development.sqlite
+│   ├── migrate
+│   │   ├── 20151124191332_create_users.rb
+│   │   └── 20151124191334_create_tweets.rb
+│   ├── schema.rb
+│   └── test.sqlite
 └── spec
     ├── controllers
-    │   └── application_controller_spec.rb
+    │   └── application_controller_spec.rb
     └── spec_helper.rb
 ```
 
