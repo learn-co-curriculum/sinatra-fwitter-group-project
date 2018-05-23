@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'pry'
 
 describe ApplicationController do
 
@@ -92,6 +93,7 @@ describe ApplicationController do
     end
 
     it 'does not let user view login page if already logged in' do
+      user = User.create(:username => "becky567", :email => "starz@aol.com", :password => "kittens")
       params = {
         :username => "becky567",
         :password => "kittens"
