@@ -65,8 +65,6 @@ describe ApplicationController do
         :password => "rainbows"
       }
       post '/signup', params
-      session = {}
-      session[:user_id] = user.id
       get '/signup'
       expect(last_response.location).to include('/tweets')
     end
@@ -99,8 +97,6 @@ describe ApplicationController do
         :password => "kittens"
       }
       post '/login', params
-      session = {}
-      session[:user_id] = user.id
       get '/login'
       expect(last_response.location).to include("/tweets")
     end
@@ -325,8 +321,6 @@ describe ApplicationController do
         fill_in(:username, :with => "becky567")
         fill_in(:password, :with => "kittens")
         click_button 'submit'
-        session = {}
-        session[:user_id] = user1.id
         visit "/tweets/#{tweet2.id}/edit"
         expect(page.current_path).to include('/tweets')
       end
