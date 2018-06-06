@@ -89,6 +89,7 @@ describe ApplicationController do
     end
 
     it 'does not let user view login page if already logged in' do
+      user = User.create(:username => "becky567", :email => "starz@aol.com", :password => "kittens")
       params = {
         :username => "becky567",
         :password => "kittens"
@@ -318,8 +319,6 @@ describe ApplicationController do
         fill_in(:username, :with => "becky567")
         fill_in(:password, :with => "kittens")
         click_button 'submit'
-        session = {}
-        session[:user_id] = user1.id
         visit "/tweets/#{tweet2.id}/edit"
         expect(page.current_path).to include('/tweets')
       end
