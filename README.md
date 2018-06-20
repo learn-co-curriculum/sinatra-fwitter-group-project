@@ -77,7 +77,9 @@ Remember! The goal at The Flatiron School is not to do, it is to *learn*. Make s
 │   └── test.sqlite
 └── spec
     ├── controllers
-    │   └── application_controller_spec.rb
+    │   └── application_controller_spec.rb
+    ├── models
+    │   └── user_spec.rb
     └── spec_helper.rb
 ```
 

@@ -58,16 +58,13 @@ describe ApplicationController do
       expect(last_response.location).to include('/signup')
     end
 
-    it 'does not let a logged in user view the signup page' do
-      user = User.create(:username => "skittles123", :email => "skittles@aol.com", :password => "rainbows")
+    it 'creates a new user and logs them in on valid submission and does not let a logged in user view the signup page' do
       params = {
         :username => "skittles123",
         :email => "skittles@aol.com",
         :password => "rainbows"
       }
       post '/signup', params
-      session = {}
-      session[:user_id] = user.id
       get '/signup'
       expect(last_response.location).to include('/tweets')
     end
@@ -323,8 +320,6 @@ describe ApplicationController do
         fill_in(:username, :with => "becky567")
         fill_in(:password, :with => "kittens")
         click_button 'submit'
-        session = {}
-        session[:user_id] = user1.id
         visit "/tweets/#{tweet2.id}/edit"
         expect(page.current_path).to include('/tweets')
       end
