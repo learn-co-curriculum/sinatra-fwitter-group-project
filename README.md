@@ -101,7 +101,7 @@ You'll need to create two migrations to create the users and the tweets table.
 
 Users should have a username, email, and password, and have many tweets.
 
-Tweets should have content, belong to a user.
+Tweets should have content and belong to a user.
 
 ### Associations
 
