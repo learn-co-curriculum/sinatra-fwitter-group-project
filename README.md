@@ -69,7 +69,7 @@ understand every part of the code.
 │       ├── index.erb
 │       ├── layout.erb
 │       ├── tweets
-│       │   ├── create_tweet.erb
+│       │   ├── new.erb
 │       │   ├── edit_tweet.erb
 │       │   ├── show_tweet.erb
 │       │   └── tweets.erb
