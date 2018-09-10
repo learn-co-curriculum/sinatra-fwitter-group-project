@@ -57,7 +57,7 @@ Remember! The goal at The Flatiron School is not to do, it is to *learn*. Make s
 │       ├── index.erb
 │       ├── layout.erb
 │       ├── tweets
-│       │   ├── create_tweet.erb
+│       │   ├── new.erb
 │       │   ├── edit_tweet.erb
 │       │   ├── show_tweet.erb
 │       │   └── tweets.erb
