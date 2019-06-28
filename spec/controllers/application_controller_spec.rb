@@ -103,7 +103,7 @@ describe ApplicationController do
   end
 
   describe "logout" do
-    it "lets a user logout if they are already logged in" do
+    it "lets a user logout if they are already logged in and redirects to the login page" do
       user = User.create(:username => "becky567", :email => "starz@aol.com", :password => "kittens")
 
       params = {
@@ -115,17 +115,19 @@ describe ApplicationController do
       expect(last_response.location).to include("/login")
     end
 
-    it 'does not let a user logout if not logged in' do
+    it 'redirects a user to the index page if the user tries to access /logout while not logged in' do
       get '/logout'
       expect(last_response.location).to include("/")
+
     end
 
-    it 'does not load /tweets if user not logged in' do
+    it 'redirects a user to the login route if a user tries to access /tweets route if user not logged in' do
       get '/tweets'
       expect(last_response.location).to include("/login")
+      expect(last_response.status).to eq(302)
     end
 
-    it 'does load /tweets if user is logged in' do
+    it 'loads /tweets if user is logged in' do
       user = User.create(:username => "becky567", :email => "starz@aol.com", :password => "kittens")
 
 
@@ -135,6 +137,7 @@ describe ApplicationController do
       fill_in(:password, :with => "kittens")
       click_button 'submit'
       expect(page.current_path).to eq('/tweets')
+      expect(page.body).to include("Welcome")
     end
   end
 
