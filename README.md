@@ -128,6 +128,13 @@ You'll need a controller action to load the home page. You'll want to create a
 view that will eventually link to both a login page and signup page. The
 homepage should respond to a GET request to `/`.
 
+### Tweets Index Page
+
+You'll need to create a controller action that will load the tweets index page.
+You'll want to create a view that will display all tweets for the logged in user
+and other used. The tweets index page should respond to a GET request to
+`/tweets`. If a user is not logged in, it will redirect to `/login`.
+
 ### Create Tweet
 
 You'll need to create two controller actions, one to load the create tweet form,
