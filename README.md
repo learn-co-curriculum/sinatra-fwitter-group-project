@@ -43,7 +43,7 @@ different styles:
 
 Remember! The goal at The Flatiron School is not to do, it is to _learn_. Make
 sure you have worked in all three styles of collaboration. We want you to learn
-how the different styles works, and make sure that together you and your partner
+how the different styles work, and make sure that together you and your partner
 understand every part of the code.
 
 ## Instructions
@@ -113,7 +113,7 @@ You'll need to create two models in `app/models`, one `User` model and one
 
 ### Migrations
 
-You'll need to create two migrations to create the users and the tweets table.
+You'll need to create two migrations to create the users and tweets tables.
 
 Users should have a username, email, and password, and have many tweets.
 
@@ -134,7 +134,7 @@ homepage should respond to a GET request to `/`.
 
 You'll need to create a controller action that will load the tweets index page.
 You'll want to create a view that will display all tweets for the logged in user
-and other used. The tweets index page should respond to a GET request to
+and other users. The tweets index page should respond to a GET request to
 `/tweets`. If a user is not logged in, it will redirect to `/login`.
 
 ### Create Tweet
@@ -147,7 +147,7 @@ submitted via a POST to `/tweets`.
 ### Show Tweet
 
 You'll need to create a controller action that displays the information for a
-single tweet. You'll want the controller action respond to a GET request to
+single tweet. You'll want the controller action to respond to a GET request to
 `/tweets/:id`.
 
 ### Edit Tweet
@@ -184,7 +184,7 @@ Make sure you add the Signup link to the home page.
 ### Log In
 
 You'll need two more controller actions to process logging in: one to display
-the form to log in and one to log add the `user_id` to the sessions hash.
+the form to log in and one to add the `user_id` to the sessions hash.
 
 The form to login should be loaded via a GET request to `/login` and submitted
 via a POST request to `/login`.
