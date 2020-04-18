@@ -198,7 +198,7 @@ the user to `/login`.
 ### Protecting The Views
 
 You'll need to make sure that no one can create, read, edit or delete any
-tweets.
+tweets unless they're logged in.
 
 You'll want to create two helper methods `current_user` and `logged_in?`. You'll
 want to use these helper methods to block content if a user is not logged in.
