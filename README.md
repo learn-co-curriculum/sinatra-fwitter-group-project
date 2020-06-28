@@ -205,5 +205,3 @@ want to use these helper methods to block content if a user is not logged in.
 
 It's especially important that a user should not be able to edit or delete the
 tweets created by a different user. A user can only modify their own tweets.
-
-<p class='util--hide'>View <a href='https://learn.co/lessons/sinatra-fwitter-group-project'>Fwitter</a> on Learn.co and start learning to code for free.</p>
