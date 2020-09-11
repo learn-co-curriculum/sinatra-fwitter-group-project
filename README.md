@@ -27,7 +27,7 @@ controller actions that map to the correct routes.
 
 ## Group Project Instructions
 
-_Instructions for how to work on a Group Project with Learn_
+_Instructions for how to work on a Group Project_
 
 ### Some Hints on Working Together
 
