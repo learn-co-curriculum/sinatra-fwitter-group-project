@@ -2,7 +2,7 @@
 
 ## Objectives
 
-1.  Build a full scale Sinatra application that uses:
+Build a full scale Sinatra application that uses:
 
 - A sqlite database
 - ActiveRecord
@@ -27,8 +27,6 @@ controller actions that map to the correct routes.
 
 ## Group Project Instructions
 
-_Instructions for how to work on a Group Project with Learn_
-
 ### Some Hints on Working Together
 
 Working on a software project with another person is not something to be taken
@@ -39,18 +37,19 @@ different styles:
 
 - Pair - Pair the entire time working linearly together
 - Pass - 1 person does 1 requirement and then the next person does the next one
-- Parallel - work on different parts at the same time by agreeing on interfaces and stubs and meeting in the middle
+- Parallel - work on different parts at the same time by agreeing on interfaces
+  and stubs and meeting in the middle
 
 Remember! The goal at The Flatiron School is not to do, it is to _learn_. Make
 sure you have worked in all three styles of collaboration. We want you to learn
-how the different styles works, and make sure that together you and your partner
+how the different styles work, and make sure that together you and your partner
 understand every part of the code.
 
 ## Instructions
 
 ### File Structure
 
-```
+```txt
 ├── CONTRIBUTING.md
 ├── Gemfile
 ├── Gemfile.lock
@@ -111,7 +110,7 @@ You'll need to create two models in `app/models`, one `User` model and one
 
 ### Migrations
 
-You'll need to create two migrations to create the users and the tweets table.
+You'll need to create two migrations to create the users and tweets tables.
 
 Users should have a username, email, and password, and have many tweets.
 
@@ -132,7 +131,7 @@ homepage should respond to a GET request to `/`.
 
 You'll need to create a controller action that will load the tweets index page.
 You'll want to create a view that will display all tweets for the logged in user
-and other used. The tweets index page should respond to a GET request to
+and other users. The tweets index page should respond to a GET request to
 `/tweets`. If a user is not logged in, it will redirect to `/login`.
 
 ### Create Tweet
@@ -145,7 +144,7 @@ submitted via a POST to `/tweets`.
 ### Show Tweet
 
 You'll need to create a controller action that displays the information for a
-single tweet. You'll want the controller action respond to a GET request to
+single tweet. You'll want the controller action to respond to a GET request to
 `/tweets/:id`.
 
 ### Edit Tweet
@@ -175,14 +174,15 @@ form submission should create the user and save it to the database.
 The form to sign up should be loaded via a GET request to `/signup` and
 submitted via a POST request to `/signup`.
 
-The signup action should also log the user in and add the `user_id` to the sessions hash.
+The signup action should also log the user in and add the `user_id` to the
+sessions hash.
 
 Make sure you add the Signup link to the home page.
 
 ### Log In
 
 You'll need two more controller actions to process logging in: one to display
-the form to log in and one to log add the `user_id` to the sessions hash.
+the form to log in and one to add the `user_id` to the sessions hash.
 
 The form to login should be loaded via a GET request to `/login` and submitted
 via a POST request to `/login`.
@@ -196,12 +196,10 @@ the user to `/login`.
 ### Protecting The Views
 
 You'll need to make sure that no one can create, read, edit or delete any
-tweets.
+tweets unless they're logged in.
 
 You'll want to create two helper methods `current_user` and `logged_in?`. You'll
 want to use these helper methods to block content if a user is not logged in.
 
 It's especially important that a user should not be able to edit or delete the
 tweets created by a different user. A user can only modify their own tweets.
-
-<p class='util--hide'>View <a href='https://learn.co/lessons/sinatra-fwitter-group-project'>Fwitter</a> on Learn.co and start learning to code for free.</p>
