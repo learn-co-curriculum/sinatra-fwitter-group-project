@@ -2,7 +2,7 @@
 
 ## Objectives
 
-1.  Build a full scale Sinatra application that uses:
+Build a full scale Sinatra application that uses:
 
 - A sqlite database
 - ActiveRecord
@@ -27,8 +27,6 @@ controller actions that map to the correct routes.
 
 ## Group Project Instructions
 
-_Instructions for how to work on a Group Project_
-
 ### Some Hints on Working Together
 
 Working on a software project with another person is not something to be taken
@@ -39,7 +37,8 @@ different styles:
 
 - Pair - Pair the entire time working linearly together
 - Pass - 1 person does 1 requirement and then the next person does the next one
-- Parallel - work on different parts at the same time by agreeing on interfaces and stubs and meeting in the middle
+- Parallel - work on different parts at the same time by agreeing on interfaces
+  and stubs and meeting in the middle
 
 Remember! The goal at The Flatiron School is not to do, it is to _learn_. Make
 sure you have worked in all three styles of collaboration. We want you to learn
@@ -50,7 +49,7 @@ understand every part of the code.
 
 ### File Structure
 
-```
+```txt
 ├── CONTRIBUTING.md
 ├── Gemfile
 ├── Gemfile.lock
@@ -177,7 +176,8 @@ form submission should create the user and save it to the database.
 The form to sign up should be loaded via a GET request to `/signup` and
 submitted via a POST request to `/signup`.
 
-The signup action should also log the user in and add the `user_id` to the sessions hash.
+The signup action should also log the user in and add the `user_id` to the
+sessions hash.
 
 Make sure you add the Signup link to the home page.
 
